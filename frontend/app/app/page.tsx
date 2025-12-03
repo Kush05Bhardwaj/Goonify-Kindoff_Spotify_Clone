@@ -53,41 +53,41 @@ function AnalyticsView({ analytics, loading }: { analytics: any, loading: boolea
       className="col-span-2 space-y-6"
     >
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 border border-emerald-500/30 rounded-2xl p-6 text-center"
+          whileHover={{ scale: 1.03 }}
+          className="bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 border border-emerald-500/30 rounded-xl p-4 text-center"
         >
-          <div className="text-3xl mb-2">⏱️</div>
-          <div className="text-2xl font-bold text-emerald-400">{formatTime(analytics.totalListeningTime)}</div>
-          <div className="text-sm text-slate-400">Total Listening Time</div>
+          <div className="text-2xl sm:text-3xl mb-1.5">⏱️</div>
+          <div className="text-lg sm:text-xl md:text-2xl font-bold text-emerald-400">{formatTime(analytics.totalListeningTime)}</div>
+          <div className="text-[10px] sm:text-xs md:text-sm text-slate-400">Total Listening Time</div>
         </motion.div>
 
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="bg-gradient-to-br from-purple-500/20 to-purple-600/20 border border-purple-500/30 rounded-2xl p-6 text-center"
+          whileHover={{ scale: 1.03 }}
+          className="bg-gradient-to-br from-purple-500/20 to-purple-600/20 border border-purple-500/30 rounded-xl p-4 text-center"
         >
-          <div className="text-3xl mb-2">🎵</div>
-          <div className="text-2xl font-bold text-purple-400">{analytics.totalTracks}</div>
-          <div className="text-sm text-slate-400">Top Tracks</div>
+          <div className="text-2xl sm:text-3xl mb-1.5">🎵</div>
+          <div className="text-lg sm:text-xl md:text-2xl font-bold text-purple-400">{analytics.totalTracks}</div>
+          <div className="text-[10px] sm:text-xs md:text-sm text-slate-400">Top Tracks</div>
         </motion.div>
 
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/30 rounded-2xl p-6 text-center"
+          whileHover={{ scale: 1.03 }}
+          className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/30 rounded-xl p-4 text-center"
         >
-          <div className="text-3xl mb-2">👤</div>
-          <div className="text-2xl font-bold text-blue-400">{analytics.totalArtists}</div>
-          <div className="text-sm text-slate-400">Top Artists</div>
+          <div className="text-2xl sm:text-3xl mb-1.5">👤</div>
+          <div className="text-lg sm:text-xl md:text-2xl font-bold text-blue-400">{analytics.totalArtists}</div>
+          <div className="text-[10px] sm:text-xs md:text-sm text-slate-400">Top Artists</div>
         </motion.div>
 
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="bg-gradient-to-br from-pink-500/20 to-pink-600/20 border border-pink-500/30 rounded-2xl p-6 text-center"
+          whileHover={{ scale: 1.03 }}
+          className="bg-gradient-to-br from-pink-500/20 to-pink-600/20 border border-pink-500/30 rounded-xl p-4 text-center"
         >
-          <div className="text-3xl mb-2">⭐</div>
-          <div className="text-2xl font-bold text-pink-400">{analytics.avgPopularity}</div>
-          <div className="text-sm text-slate-400">Avg Popularity</div>
+          <div className="text-2xl sm:text-3xl mb-1.5">⭐</div>
+          <div className="text-lg sm:text-xl md:text-2xl font-bold text-pink-400">{analytics.avgPopularity}</div>
+          <div className="text-[10px] sm:text-xs md:text-sm text-slate-400">Avg Popularity</div>
         </motion.div>
       </div>
 
@@ -380,15 +380,15 @@ export default function AppPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 pb-32">
       {/* Header */}
       <header className="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center text-lg sm:text-xl">
                 🎵
               </div>
               <div>
-                <h1 className="text-xl font-bold text-slate-100">Smart Music Explorer</h1>
-                <p className="text-xs text-slate-400">Welcome back, {user?.display_name}</p>
+                <h1 className="text-sm sm:text-lg font-bold text-slate-100">Smart Music Explorer</h1>
+                <p className="text-[10px] sm:text-xs text-slate-400 hidden sm:block">Welcome back, {user?.display_name}</p>
               </div>
             </div>
 
@@ -396,12 +396,12 @@ export default function AppPage() {
               <div className="relative">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                  className="flex items-center gap-2 hover:opacity-80 transition-opacity"
                 >
                   <img
                     src={user.images?.[0]?.url}
                     alt="Profile"
-                    className="w-10 h-10 rounded-full border-2 border-emerald-500/50"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-emerald-500/50"
                   />
                 </button>
 
@@ -445,35 +445,36 @@ export default function AppPage() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-6 py-8">
-        <div className="grid lg:grid-cols-3 gap-6">
+      <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="grid lg:grid-cols-3 gap-4 lg:gap-6">
           {/* Left: Tracks List */}
           <div className="lg:col-span-2 space-y-6">
             {/* View Toggle */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide"
+              className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 scrollbar-hide"
             >
               {[
-                { mode: 'top-tracks', icon: '🎵', label: 'My Top Tracks', color: 'emerald' },
-                { mode: 'recommendations', icon: '✨', label: 'Trending', color: 'purple' },
-                { mode: 'playlist', icon: '📁', label: 'Playlists', color: 'blue' },
-                { mode: 'search', icon: '🔍', label: 'Search', color: 'pink' },
-                { mode: 'analytics', icon: '📊', label: 'Analytics', color: 'cyan' }
-              ].map(({ mode, icon, label, color }) => (
+                { mode: 'top-tracks', icon: '🎵', label: 'Top Tracks', shortLabel: 'Top', color: 'emerald' },
+                { mode: 'recommendations', icon: '✨', label: 'Trending', shortLabel: 'Recs', color: 'purple' },
+                { mode: 'playlist', icon: '📁', label: 'Playlists', shortLabel: 'Lists', color: 'blue' },
+                { mode: 'search', icon: '🔍', label: 'Search', shortLabel: 'Search', color: 'pink' },
+                { mode: 'analytics', icon: '📊', label: 'Analytics', shortLabel: 'Stats', color: 'cyan' }
+              ].map(({ mode, icon, label, shortLabel, color }) => (
                 <motion.button
                   key={mode}
                   onClick={() => setViewMode(mode as ViewMode)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className={`px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
                     viewMode === mode
                       ? `bg-${color}-500 text-white shadow-lg shadow-${color}-500/30`
                       : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
                   }`}
                 >
-                  {icon} {label}
+                  <span className="hidden sm:inline">{icon} {label}</span>
+                  <span className="sm:hidden">{icon} {shortLabel}</span>
                 </motion.button>
               ))}
             </motion.div>
@@ -590,7 +591,7 @@ export default function AppPage() {
                   <p className="text-slate-400">Start typing to search for songs</p>
                 </motion.div>
               ) : (
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {(viewMode === 'search' ? searchResults : viewMode === 'recommendations' ? recommendations : tracks).map((track, i) => (
                 <motion.div
                   key={track.id}
@@ -598,22 +599,22 @@ export default function AppPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ delay: i * 0.03, duration: 0.3 }}
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  className={`group relative bg-slate-900/50 backdrop-blur-sm rounded-2xl border transition-all duration-300 cursor-pointer ${
+                  whileHover={{ scale: 1.01, y: -2 }}
+                  className={`group relative bg-slate-900/50 backdrop-blur-sm rounded-xl border transition-all duration-300 cursor-pointer ${
                     selected?.id === track.id
                       ? 'border-emerald-500 shadow-lg shadow-emerald-500/20'
                       : 'border-slate-800 hover:border-slate-700'
                   }`}
                   onClick={() => selectTrack(track)}
                 >
-                  <div className="p-4">
-                    <div className="flex gap-4">
+                  <div className="p-3">
+                    <div className="flex gap-3">
                       {/* Album Art */}
                       <div className="relative flex-shrink-0">
                         <motion.img
                           src={track.album.images?.[1]?.url || track.album.images?.[0]?.url}
                           alt={track.name}
-                          className="w-20 h-20 rounded-xl"
+                          className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg"
                           whileHover={{ scale: 1.1 }}
                           transition={{ duration: 0.2 }}
                         />
@@ -644,14 +645,14 @@ export default function AppPage() {
 
                       {/* Track Info */}
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-slate-100 truncate mb-1">
+                        <h3 className="font-semibold text-sm sm:text-base text-slate-100 truncate mb-1">
                           {track.name}
                         </h3>
-                        <p className="text-sm text-slate-400 truncate mb-2">
+                        <p className="text-xs sm:text-sm text-slate-400 truncate mb-1.5">
                           {track.artists.map(a => a.name).join(', ')}
                         </p>
-                        <div className="flex items-center gap-2 text-xs text-slate-500">
-                          <span className="px-2 py-1 bg-slate-800 rounded">
+                        <div className="flex items-center gap-2 text-[10px] sm:text-xs text-slate-500">
+                          <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-slate-800 rounded truncate max-w-[150px]">
                             {track.album.name}
                           </span>
                         </div>
@@ -704,9 +705,9 @@ export default function AppPage() {
                     <motion.button
                       onClick={() => playTrack(selected.uri)}
                       disabled={playingTrackUri === selected.uri}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-full py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-emerald-500/30"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="w-full py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-emerald-500/30"
                     >
                       {playingTrackUri === selected.uri ? (
                         <>

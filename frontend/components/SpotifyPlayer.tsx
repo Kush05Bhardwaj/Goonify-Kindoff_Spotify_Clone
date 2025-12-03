@@ -149,8 +149,8 @@ export default function SpotifyWebPlayer({ token, onDeviceReady }: SpotifyPlayer
 
   if (!isActive || !currentTrack) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 p-4">
-        <div className="max-w-7xl mx-auto text-center text-slate-400 text-sm">
+      <div className="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 p-3 sm:p-4">
+        <div className="max-w-7xl mx-auto text-center text-slate-400 text-xs sm:text-sm">
           {isReady ? (
             <>
               <div className="flex items-center justify-center gap-2">
@@ -175,48 +175,48 @@ export default function SpotifyWebPlayer({ token, onDeviceReady }: SpotifyPlayer
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 p-4 shadow-2xl">
+    <div className="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 p-2 sm:p-4 shadow-2xl">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
           {/* Album Art & Track Info */}
-          <div className="flex items-center gap-3 flex-1 min-w-0">
+          <div className="flex items-center gap-2 sm:gap-3 flex-1 w-full min-w-0">
             <img
               src={currentTrack.album.images[0]?.url}
               alt={currentTrack.name}
-              className="w-14 h-14 rounded-lg shadow-lg"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg shadow-lg flex-shrink-0"
             />
             <div className="min-w-0 flex-1">
-              <p className="font-semibold text-sm truncate">{currentTrack.name}</p>
-              <p className="text-xs text-slate-400 truncate">
+              <p className="font-semibold text-xs sm:text-sm truncate">{currentTrack.name}</p>
+              <p className="text-[10px] sm:text-xs text-slate-400 truncate">
                 {currentTrack.artists.map((a: any) => a.name).join(", ")}
               </p>
             </div>
           </div>
 
           {/* Playback Controls */}
-          <div className="flex flex-col items-center gap-2 flex-1">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col items-center gap-1.5 sm:gap-2 flex-1 w-full">
+            <div className="flex items-center gap-2 sm:gap-3">
               <button
                 onClick={handlePrevious}
-                className="p-2 hover:bg-slate-800 rounded-full transition"
+                className="p-1.5 sm:p-2 hover:bg-slate-800 rounded-full transition"
                 title="Previous"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
                 </svg>
               </button>
 
               <button
                 onClick={handlePlayPause}
-                className="p-3 bg-emerald-500 hover:bg-emerald-400 rounded-full transition"
+                className="p-2 sm:p-3 bg-emerald-500 hover:bg-emerald-400 rounded-full transition"
                 title={isPaused ? "Play" : "Pause"}
               >
                 {isPaused ? (
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 ) : (
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6 4h4v16H6zm8 0h4v16h-4z" />
                   </svg>
                 )}
@@ -224,18 +224,18 @@ export default function SpotifyWebPlayer({ token, onDeviceReady }: SpotifyPlayer
 
               <button
                 onClick={handleNext}
-                className="p-2 hover:bg-slate-800 rounded-full transition"
+                className="p-1.5 sm:p-2 hover:bg-slate-800 rounded-full transition"
                 title="Next"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
                 </svg>
               </button>
             </div>
 
             {/* Progress Bar */}
-            <div className="flex items-center gap-2 w-full max-w-md">
-              <span className="text-xs text-slate-400 w-10 text-right">
+            <div className="flex items-center gap-1.5 sm:gap-2 w-full">
+              <span className="text-[10px] sm:text-xs text-slate-400 w-8 sm:w-10 text-right">
                 {formatTime(position)}
               </span>
               <input
@@ -244,18 +244,18 @@ export default function SpotifyWebPlayer({ token, onDeviceReady }: SpotifyPlayer
                 max={duration}
                 value={position}
                 onChange={handleSeek}
-                className="flex-1 h-1 bg-slate-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-emerald-500"
+                className="flex-1 h-1 bg-slate-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:h-2.5 sm:[&::-webkit-slider-thumb]:w-3 sm:[&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-emerald-500"
               />
-              <span className="text-xs text-slate-400 w-10">
+              <span className="text-[10px] sm:text-xs text-slate-400 w-8 sm:w-10">
                 {formatTime(duration)}
               </span>
             </div>
           </div>
 
           {/* Volume & Extra Controls */}
-          <div className="flex items-center gap-2 flex-1 justify-end">
-            <div className="text-xs text-slate-500">
-              Device: <span className="text-emerald-400">Web Player</span>
+          <div className="hidden sm:flex items-center gap-2 flex-1 justify-end">
+            <div className="text-[10px] sm:text-xs text-slate-500">
+              <span className="hidden md:inline">Device: </span><span className="text-emerald-400">Web Player</span>
             </div>
           </div>
         </div>
