@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
     login: `${API_URL}/api/auth/login`,
     logout: `${API_URL}/api/auth/logout`,
     status: `${API_URL}/api/auth/status`,
+    token: `${API_URL}/api/auth/token`,
   },
   spotify: {
     me: `${API_URL}/api/me`,

@@ -14,14 +14,15 @@ export function useSpotifyToken() {
         return;
       }
 
-      // Fallback: Try to get token from backend via cookie (development)
+      // Fallback: Try to get token from backend via cookie (development only)
       try {
-        const data = await apiFetch(`${API_ENDPOINTS.auth.login.replace('/login', '/token')}`);
+        const data = await apiFetch(API_ENDPOINTS.auth.token);
         if (data.token) {
           setToken(data.token);
         }
       } catch (error) {
-        console.error('Failed to get token:', error);
+        // Silently fail in production (no cookies available)
+        console.log('No token available - please login');
       }
     };
 
