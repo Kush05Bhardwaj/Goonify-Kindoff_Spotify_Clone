@@ -567,6 +567,22 @@ Set up automated backups for:
 3. Test build locally: `npm run build`
 4. Check Node.js version compatibility
 
+### Issue: "ESLint or TypeScript errors during build"
+
+**Solution:**
+The `next.config.ts` already has `ignoreBuildErrors` and `ignoreDuringBuilds` enabled for production deployments. If you still encounter issues:
+1. Verify `next.config.ts` has these settings:
+   ```typescript
+   typescript: {
+     ignoreBuildErrors: true,
+   },
+   eslint: {
+     ignoreDuringBuilds: true,
+   },
+   ```
+2. Test build locally: `npm run build`
+3. Fix type errors gradually in development
+
 ### Issue: "Web Player doesn't work"
 
 **Solution:**
