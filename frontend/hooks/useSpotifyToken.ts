@@ -1,21 +1,23 @@
 import { useState, useEffect } from 'react';
+import { TokenStorage, API_ENDPOINTS, apiFetch } from '@/lib/api';
 
 export function useSpotifyToken() {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    // Try to get token from cookie (if you expose it)
-    // Or fetch from a dedicated endpoint
     const getToken = async () => {
+      // First, try to get token from localStorage (production)
+      const storedToken = TokenStorage.getAccessToken();
+      
+      if (storedToken && !TokenStorage.isTokenExpired()) {
+        setToken(storedToken);
+        return;
+      }
+
+      // Fallback: Try to get token from backend via cookie (development)
       try {
-        // This would need a new endpoint that returns the token
-        // For now, we'll pass it from the user data
-        const response = await fetch('http://127.0.0.1:4000/api/auth/token', {
-          credentials: 'include'
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
+        const data = await apiFetch(`${API_ENDPOINTS.auth.login.replace('/login', '/token')}`);
+        if (data.token) {
           setToken(data.token);
         }
       } catch (error) {

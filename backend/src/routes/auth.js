@@ -41,22 +41,36 @@ router.get('/callback', async (req, res) => {
     const refreshToken = data.body['refresh_token'];
     const expiresIn = data.body['expires_in'];
 
-    // Save tokens in HTTP-only cookies
-    res.cookie('spotify_access_token', accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: expiresIn * 1000,
-    });
+    // For production (different domains), pass tokens via URL
+    // For development (same domain), use cookies
+    const isDifferentDomain = !FRONTEND_URL.includes('localhost') && !FRONTEND_URL.includes('127.0.0.1');
+    
+    if (isDifferentDomain) {
+      // Production: Pass tokens via URL parameters (frontend will store them)
+      const params = new URLSearchParams({
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        expires_in: expiresIn.toString()
+      });
+      res.redirect(`${FRONTEND_URL}/app?${params.toString()}`);
+    } else {
+      // Development: Use HTTP-only cookies
+      res.cookie('spotify_access_token', accessToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        maxAge: expiresIn * 1000,
+      });
 
-    res.cookie('spotify_refresh_token', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    });
+      res.cookie('spotify_refresh_token', refreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      });
 
-    res.redirect(`${FRONTEND_URL}/app`);
+      res.redirect(`${FRONTEND_URL}/app`);
+    }
   } catch (err) {
     console.error('Error exchanging code for token:', err.message);
     return res.redirect(`${FRONTEND_URL}?error=auth_failed`);

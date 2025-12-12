@@ -206,9 +206,31 @@ export default function AppPage() {
   const [analytics, setAnalytics] = useState<any>(null);
   const [loadingAnalytics, setLoadingAnalytics] = useState(false);
 
+  // Extract tokens from URL (production auth flow)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const accessToken = params.get('access_token');
+      const refreshToken = params.get('refresh_token');
+      const expiresIn = params.get('expires_in');
+
+      if (accessToken && refreshToken && expiresIn) {
+        // Store tokens
+        const { TokenStorage } = require('@/lib/api');
+        TokenStorage.setTokens(accessToken, refreshToken, parseInt(expiresIn));
+        
+        // Clean URL
+        window.history.replaceState({}, document.title, '/app');
+      }
+    }
+  }, []);
+
   const handleLogout = async () => {
     try {
-      await fetch('http://127.0.0.1:4000/api/auth/logout', {
+      const { TokenStorage } = require('@/lib/api');
+      TokenStorage.clearTokens();
+      
+      await fetch(`${API_ENDPOINTS.auth.logout}`, {
         method: 'POST',
         credentials: 'include'
       });

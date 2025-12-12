@@ -1,5 +1,6 @@
 // API Configuration
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+// Remove trailing slash to prevent double slashes in URLs
+export const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000').replace(/\/$/, '');
 
 // API Endpoints
 export const API_ENDPOINTS = {
@@ -38,13 +39,51 @@ export const API_ENDPOINTS = {
   }
 };
 
-// Fetch helper with credentials
+// Token storage helpers
+export const TokenStorage = {
+  setTokens: (accessToken: string, refreshToken: string, expiresIn: number) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('spotify_access_token', accessToken);
+      localStorage.setItem('spotify_refresh_token', refreshToken);
+      localStorage.setItem('spotify_token_expires', (Date.now() + expiresIn * 1000).toString());
+    }
+  },
+  
+  getAccessToken: (): string | null => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('spotify_access_token');
+    }
+    return null;
+  },
+  
+  clearTokens: () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('spotify_access_token');
+      localStorage.removeItem('spotify_refresh_token');
+      localStorage.removeItem('spotify_token_expires');
+    }
+  },
+  
+  isTokenExpired: (): boolean => {
+    if (typeof window !== 'undefined') {
+      const expires = localStorage.getItem('spotify_token_expires');
+      if (!expires) return true;
+      return Date.now() >= parseInt(expires);
+    }
+    return true;
+  }
+};
+
+// Fetch helper with credentials and authorization
 export async function apiFetch(url: string, options: RequestInit = {}) {
+  const accessToken = TokenStorage.getAccessToken();
+  
   const response = await fetch(url, {
     ...options,
-    credentials: 'include',
+    credentials: 'include', // Still include cookies for development
     headers: {
       'Content-Type': 'application/json',
+      ...(accessToken && { 'Authorization': `Bearer ${accessToken}` }),
       ...options.headers,
     },
   });

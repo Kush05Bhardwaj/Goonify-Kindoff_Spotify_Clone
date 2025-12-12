@@ -1,9 +1,22 @@
 // Authentication middleware
 function requireAuth(req, res, next) {
-  const accessToken = req.cookies.spotify_access_token;
+  // Try to get token from Authorization header first (for production)
+  let accessToken = null;
+  
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    accessToken = authHeader.substring(7);
+  }
+  
+  // Fallback to cookies (for development)
+  if (!accessToken) {
+    accessToken = req.cookies.spotify_access_token;
+  }
+  
   if (!accessToken) {
     return res.status(401).json({ error: "Not authenticated. Please login with Spotify." });
   }
+  
   req.accessToken = accessToken;
   next();
 }
