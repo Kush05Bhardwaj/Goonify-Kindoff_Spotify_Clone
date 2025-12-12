@@ -387,7 +387,6 @@ export default function AppPage() {
           'Content-Type': 'application/json',
           ...(accessToken && { 'Authorization': `Bearer ${accessToken}` }),
         },
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       });
 
